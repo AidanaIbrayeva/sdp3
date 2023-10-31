@@ -1,0 +1,71 @@
+interface Command {
+    void execute();
+}
+
+// Конкретная реализация команды
+class LightOnCommand implements Command {
+    private Light light;
+
+    public LightOnCommand(Light light) {
+        this.light = light;
+    }
+
+    public void execute() {
+        light.turnOn();
+    }
+}
+
+// Другая конкретная реализация команды
+class LightOffCommand implements Command {
+    private Light light;
+
+    public LightOffCommand(Light light) {
+        this.light = light;
+    }
+
+    public void execute() {
+        light.turnOff();
+    }
+}
+
+// Получатель команды
+class Light {
+    public void turnOn() {
+        System.out.println("Свет включен");
+    }
+
+    public void turnOff() {
+        System.out.println("Свет выключен");
+    }
+}
+
+// Инвокер команды
+class RemoteControl {
+    private Command command;
+
+    public void setCommand(Command command) {
+        this.command = command;
+    }
+
+    public void pressButton() {
+        command.execute();
+    }
+}
+
+public class Application {
+    public static void main(String[] args) {
+        Light light = new Light();
+
+        Command lightOn = new LightOnCommand(light);
+        Command lightOff = new LightOffCommand(light);
+
+        RemoteControl remoteControl = new RemoteControl();
+
+        // Назначаем команды
+        remoteControl.setCommand(lightOn);
+        remoteControl.pressButton(); // Включить свет
+
+        remoteControl.setCommand(lightOff);
+        remoteControl.pressButton(); // Выключить свет
+    }
+}
