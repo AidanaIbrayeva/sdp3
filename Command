@@ -2,7 +2,6 @@ interface Command {
     void execute();
 }
 
-// Конкретная реализация команды
 class LightOnCommand implements Command {
     private Light light;
 
@@ -15,7 +14,6 @@ class LightOnCommand implements Command {
     }
 }
 
-// Другая конкретная реализация команды
 class LightOffCommand implements Command {
     private Light light;
 
@@ -28,7 +26,6 @@ class LightOffCommand implements Command {
     }
 }
 
-// Получатель команды
 class Light {
     public void turnOn() {
         System.out.println("Свет включен");
@@ -39,7 +36,6 @@ class Light {
     }
 }
 
-// Инвокер команды
 class RemoteControl {
     private Command command;
 
@@ -55,17 +51,12 @@ class RemoteControl {
 public class Application {
     public static void main(String[] args) {
         Light light = new Light();
-
         Command lightOn = new LightOnCommand(light);
         Command lightOff = new LightOffCommand(light);
-
         RemoteControl remoteControl = new RemoteControl();
-
-        // Назначаем команды
         remoteControl.setCommand(lightOn);
-        remoteControl.pressButton(); // Включить свет
-
+        remoteControl.pressButton(); 
         remoteControl.setCommand(lightOff);
-        remoteControl.pressButton(); // Выключить свет
+        remoteControl.pressButton(); 
     }
 }
