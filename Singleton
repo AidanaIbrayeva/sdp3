@@ -1,0 +1,24 @@
+package main
+
+import "sync"
+
+type Singleton struct {
+	data string
+}
+
+var instance *Singleton
+var once sync.Once
+
+func GetInstance() *Singleton {
+	once.Do(func() {
+		instance = &Singleton{data: "Hello!"}
+	})
+	return instance
+}
+
+func main() {
+	singleton1 := GetInstance()
+	singleton2 := GetInstance()
+	println(singleton1.data)
+	println(singleton2.data) 
+}
